@@ -2,10 +2,12 @@
 
 /* Controllers */
 
-angular.module('myApp.controllers', []).
-  controller('MyCtrl1', [function() {
+angular.module('oauthServerUI.controllers', []).
+    controller('Tokens', ['$scope', 'tokens',
+        function ($scope, tokens) {
 
-  }])
-  .controller('MyCtrl2', [function() {
+        }])
+    .controller('Resources', ['$scope', 'resources',
+        function ($scope, resources) {
 
-  }]);
+        }]);

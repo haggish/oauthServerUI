@@ -2,9 +2,12 @@
 
 
 // Declare app level module which depends on filters, and services
-angular.module('myApp', ['myApp.filters', 'myApp.services', 'myApp.directives', 'myApp.controllers']).
-  config(['$routeProvider', function($routeProvider) {
-    $routeProvider.when('/tokens', {templateUrl: 'partials/partial1.html', controller: 'MyCtrl1'});
-    $routeProvider.when('/resources', {templateUrl: 'partials/partial2.html', controller: 'MyCtrl2'});
-    $routeProvider.otherwise({redirectTo: '/tokens'});
-  }]);
+angular.module('oauthServerUI', ['oauthServerUI.filters', 'oauthServerUI.services', 'oauthServerUI.directives',
+        'oauthServerUI.controllers']).
+    config(['$routeProvider', function ($routeProvider) {
+        $routeProvider.when('/tokens', {templateUrl: 'partials/tokens.html',
+            controller: 'Tokens'});
+        $routeProvider.when('/resources', {templateUrl: 'partials/resources.html',
+            controller: 'Resources'});
+        $routeProvider.otherwise({redirectTo: '/tokens'});
+    }]);
