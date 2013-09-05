@@ -2,4 +2,19 @@
 
 /* Filters */
 
-angular.module('oauthServerUI.filters', []);
+angular.module('oauthServerUI.filters', [])
+    .filter('commaSeparated', function () {
+        return function (stringArray) {
+            if (!stringArray || stringArray.length == 0) {
+                return '';
+            }
+            var list = '';
+            for (var i = 0; i < stringArray.length; i++) {
+                if (list !== '') {
+                    list += ', ';
+                }
+                list += stringArray[i];
+            }
+            return list;
+        };
+    });

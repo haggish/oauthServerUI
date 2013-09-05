@@ -19,7 +19,7 @@
         <tbody>
         <form class="form-inline" role="form">
             <tr>
-                <td>Sparklr</td>
+                <td>{{clientID}}</td>
                 <td>
                     <select ng-model="resources"
                             ng-options="resourceOfUser.id for resourceOfUser in resourcesOfUser"
@@ -55,7 +55,7 @@
                     <input type="url" ng-model="webServerRedirectURI" class="form-control">
                 </td>
                 <td>
-                    <input ng-model="authorities" class="form-control" value="ROLE_CLIENT">
+                    <input ng-model="authorities" class="form-control" value="{{authorities|commaSeparated}}">
                 </td>
                 <td>
                     <input type="number" ng-model="accessTokenValidity" class="form-control">
