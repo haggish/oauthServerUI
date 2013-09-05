@@ -1,74 +1,76 @@
 <table class="table">
-    <thead>
-    <tr>
-        <th>Client ID</th>
-        <th>Resources</th>
-        <th>Client Secret</th>
-        <th>Scope</th>
-        <th>Authorized Grant Types</th>
-    </tr>
-    <tr>
-        <th>Web Server Redirect URI</th>
-        <th>Authorities</th>
-        <th>Access Token Validity</th>
-        <th>Refresh Token Validity</th>
-        <th>Additional Information</th>
-    </tr>
-    </thead>
-    <tbody>
-    <form class="form-inline" role="form">
+    <div ng-repeat="token in tokens">
+        <thead>
         <tr>
-            <td>Sparklr</td>
-            <td>
-                <select multiple class="form-control">
-                    <option>tonr</option>
-                    <option>kumpir</option>
-                    <option>käkkär</option>
-                </select>
-            </td>
-            <td>
-                <input type="password" class="form-control">
-            </td>
-            <td>
-                <select multiple class="form-control">
-                    <option>read</option>
-                    <option>write</option>
-                    <option>delete</option>
-                </select>
-            </td>
-            <td>
-                <select multiple class="form-control">
-                    <option>Authorization Code</option>
-                    <option>Implicit</option>
-                </select>
-            </td>
-            <td>
-                <button type="button" class="btn btn-default btn-sm">
-                    <span class="glyphicon glyphicon-remove"></span>
-                </button>
-            </td>
+            <th>Client ID</th>
+            <th>Resources</th>
+            <th>Client Secret</th>
+            <th>Scope</th>
+            <th>Authorized Grant Types</th>
         </tr>
         <tr>
-            <td>
-                <input type="url" class="form-control">
-            </td>
-            <td>
-                <select multiple class="form-control">
-                    <option>ROLE_CLIENT</option>
-                </select>
-            </td>
-            <td>
-                <input type="number" class="form-control">
-            </td>
-            <td>
-                <input type="number" class="form-control">
-            </td>
-            <td>
-                <textarea class="form-control" rows="3"></textarea>
-            </td>
+            <th>Web Server Redirect URI</th>
+            <th>Authorities</th>
+            <th>Access Token Validity</th>
+            <th>Refresh Token Validity</th>
+            <th>Additional Information</th>
         </tr>
-    </form>
-    </tbody>
+        </thead>
+        <tbody>
+        <form class="form-inline" role="form">
+            <tr>
+                <td>Sparklr</td>
+                <td>
+                    <select ng-model="resources"
+                            ng-options="resourceOfUser.id for resourceOfUser in resourcesOfUser"
+                            multiple class="form-control">
+                        <option>-- select resources --</option>
+                    </select>
+                </td>
+                <td>
+                    <input ng-model="clientSecret" type="password" class="form-control">
+                </td>
+                <td>
+                    <select ng-model="scope"
+                            ng-options="scope for scope in unionOfResourceScopes" multiple
+                            class="form-control">
+                        <option>-- select scope --</option>
+                    </select>
+                </td>
+                <td>
+                    <select ng-model="authorizedGrantTypes"
+                            ng-options="grantType for grantType in unionOfAuthorizedGrantTypes"
+                            multiple class="form-control">
+                        <option>-- select authorized grant types --</option>
+                    </select>
+                </td>
+                <td>
+                    <button type="button" class="btn btn-default btn-sm">
+                        <span class="glyphicon glyphicon-remove"></span>
+                    </button>
+                </td>
+            </tr>
+            <tr>
+                <td>
+                    <input type="url" ng-model="webServerRedirectURI" class="form-control">
+                </td>
+                <td>
+                    <input ng-model="authorities" class="form-control" value="ROLE_CLIENT">
+                </td>
+                <td>
+                    <input type="number" ng-model="accessTokenValidity" class="form-control">
+                </td>
+                <td>
+                    <input type="number" ng-model="refreshTokenValidity" class="form-control">
+                </td>
+                <td>
+                    <textarea ng-model="additionalInformation" class="form-control" rows="3">
+                    </textarea>
+                </td>
+            </tr>
+        </form>
+        </tbody>
+    </div>
     <thead>
     <tr>
         <th>Client ID</th>
