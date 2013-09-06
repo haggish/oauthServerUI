@@ -54,8 +54,7 @@
                 <input type="url" ng-model="token.webServerRedirectURI" class="form-control">
             </td>
             <td>
-                <input ng-model="token.authorities" class="form-control"
-                       value="{{token.authorities|commaSeparated}}">
+                <input ng-model="token.authorities" comma-list-string-to-array-binding class="form-control">
             </td>
             <td>
                 <input type="number" ng-model="token.accessTokenValidity" class="form-control">
@@ -64,7 +63,8 @@
                 <input type="number" ng-model="token.refreshTokenValidity" class="form-control">
             </td>
             <td>
-                <textarea ng-model="token.additionalInformation" class="form-control" rows="3">
+                <textarea ng-model="token.additionalInformation" prop-eq-val-lines-to-obj-binding
+                          class="form-control" rows="3">
                 </textarea>
             </td>
         </tr>
