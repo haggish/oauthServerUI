@@ -1,76 +1,77 @@
-<table class="table">
-    <div ng-repeat="token in tokens">
-        <thead>
+<table class="table" ng-repeat="token in tokens">
+    <thead>
+    <tr>
+        <th>Client ID</th>
+        <th>Resources</th>
+        <th>Client Secret</th>
+        <th>Scope</th>
+        <th>Authorized Grant Types</th>
+    </tr>
+    <tr>
+        <th>Web Server Redirect URI</th>
+        <th>Authorities</th>
+        <th>Access Token Validity</th>
+        <th>Refresh Token Validity</th>
+        <th>Additional Information</th>
+    </tr>
+    </thead>
+    <tbody>
+    <form class="form-inline" role="form">
         <tr>
-            <th>Client ID</th>
-            <th>Resources</th>
-            <th>Client Secret</th>
-            <th>Scope</th>
-            <th>Authorized Grant Types</th>
+            <td>{{token.clientID}}</td>
+            <td>
+                <select ng-model="token.resources"
+                        ng-options="resourceOfUser.id for resourceOfUser in resourcesOfUser"
+                        multiple class="form-control">
+                    <option>-- select resources --</option>
+                </select>
+            </td>
+            <td>
+                <input ng-model="token.clientSecret" type="password" class="form-control">
+            </td>
+            <td>
+                <select ng-model="token.scope"
+                        ng-options="scope for scope in unionOfResourceScopes" multiple
+                        class="form-control">
+                    <option>-- select scope --</option>
+                </select>
+            </td>
+            <td>
+                <select ng-model="token.authorizedGrantTypes"
+                        ng-options="grantType for grantType in unionOfAuthorizedGrantTypes"
+                        multiple class="form-control">
+                    <option>-- select authorized grant types --</option>
+                </select>
+            </td>
+            <td>
+                <button type="button" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-remove"></span>
+                </button>
+            </td>
         </tr>
         <tr>
-            <th>Web Server Redirect URI</th>
-            <th>Authorities</th>
-            <th>Access Token Validity</th>
-            <th>Refresh Token Validity</th>
-            <th>Additional Information</th>
+            <td>
+                <input type="url" ng-model="token.webServerRedirectURI" class="form-control">
+            </td>
+            <td>
+                <input ng-model="token.authorities" class="form-control"
+                       value="{{token.authorities|commaSeparated}}">
+            </td>
+            <td>
+                <input type="number" ng-model="token.accessTokenValidity" class="form-control">
+            </td>
+            <td>
+                <input type="number" ng-model="token.refreshTokenValidity" class="form-control">
+            </td>
+            <td>
+                <textarea ng-model="token.additionalInformation" class="form-control" rows="3">
+                </textarea>
+            </td>
         </tr>
-        </thead>
-        <tbody>
-        <form class="form-inline" role="form">
-            <tr>
-                <td>{{clientID}}</td>
-                <td>
-                    <select ng-model="resources"
-                            ng-options="resourceOfUser.id for resourceOfUser in resourcesOfUser"
-                            multiple class="form-control">
-                        <option>-- select resources --</option>
-                    </select>
-                </td>
-                <td>
-                    <input ng-model="clientSecret" type="password" class="form-control">
-                </td>
-                <td>
-                    <select ng-model="scope"
-                            ng-options="scope for scope in unionOfResourceScopes" multiple
-                            class="form-control">
-                        <option>-- select scope --</option>
-                    </select>
-                </td>
-                <td>
-                    <select ng-model="authorizedGrantTypes"
-                            ng-options="grantType for grantType in unionOfAuthorizedGrantTypes"
-                            multiple class="form-control">
-                        <option>-- select authorized grant types --</option>
-                    </select>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>
-                    <input type="url" ng-model="webServerRedirectURI" class="form-control">
-                </td>
-                <td>
-                    <input ng-model="authorities" class="form-control" value="{{authorities|commaSeparated}}">
-                </td>
-                <td>
-                    <input type="number" ng-model="accessTokenValidity" class="form-control">
-                </td>
-                <td>
-                    <input type="number" ng-model="refreshTokenValidity" class="form-control">
-                </td>
-                <td>
-                    <textarea ng-model="additionalInformation" class="form-control" rows="3">
-                    </textarea>
-                </td>
-            </tr>
-        </form>
-        </tbody>
-    </div>
+    </form>
+    </tbody>
+</table>
+<table>
     <thead>
     <tr>
         <th>Client ID</th>

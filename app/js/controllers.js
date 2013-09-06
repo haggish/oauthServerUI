@@ -3,6 +3,7 @@
 /* Controllers */
 
 angular.module('oauthServerUI.controllers', []).
+
     controller('Tokens', ['$scope', 'tokens', 'resources',
         function ($scope, tokens, resources) {
             $scope.resourcesOfUser = resources.query(); // FIXME: only resources of cuser
@@ -12,7 +13,8 @@ angular.module('oauthServerUI.controllers', []).
             $scope.unionOfAuthorizedGrantTypes = [ 'AUTHORIZATION_CODE', 'IMPLICIT' ];
             $scope.tokens = tokens.query();
         }])
-    .controller('Resources', ['$scope', 'resources',
-        function ($scope, resources) {
+    .controller('Resources', ['$scope', 'resources', 'users',
+        function ($scope, resources, users) {
             $scope.resources = resources.query();
+            $scope.users = users.query();
         }]);

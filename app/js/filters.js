@@ -17,4 +17,16 @@ angular.module('oauthServerUI.filters', [])
             }
             return list;
         };
+    })
+    .filter('propertyLined', function () {
+        return function (object) {
+            if (!object) {
+                return '';
+            }
+            var out = '';
+            for (var property in object) {
+                out += (property + ' = ' + object[property] + '\n');
+            }
+            return out;
+        }
     });

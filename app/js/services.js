@@ -16,4 +16,7 @@ angular.module('oauthServerUI.services', ['ngResource'])
     })
     .factory('resources', function (util) {
         return util.resourceFor('resources');
+    })
+    .factory('users', function (util) {
+        return util.resourceFor('users');
     });

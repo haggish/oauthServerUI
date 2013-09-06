@@ -6,32 +6,16 @@
             <th>Description</th>
             </thead>
             <tbody>
-            <tr>
-                <td>sparklr</td>
-                <td>some kind of system</td>
-                <td>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>tonr</td>
-                <td>some kind of printing system</td>
-                <td>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>pomppor</td>
-                <td>silly kind of system</td>
-                <td>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </td>
+            <tr ng-repeat="resource in resources">
+                <form class="form-inline">
+                    <td>{{resource.id}}</td>
+                    <td><input type="text" value="{{resource.description}}"></td>
+                    <td>
+                        <button type="button" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </td>
+                </form>
             </tr>
             <tr>
                 <td><input required type="text"></td>
@@ -52,40 +36,12 @@
             <th>Resources</th>
             </thead>
             <tbody>
-            <tr>
-                <td>jore</td>
-                <td><select multiple class="form-control">
-                    <option>sparklr</option>
-                    <option>tonr</option>
-                    <option>kumpir</option>
-                </select>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>retu</td>
-                <td><select multiple class="form-control">
-                    <option>sparklr</option>
-                    <option>tonr</option>
-                    <option>kumpir</option>
-                </select>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </td>
-            </tr>
-            <tr>
-                <td>ary</td>
-                <td><select multiple class="form-control">
-                    <option>sparklr</option>
-                    <option>tonr</option>
-                    <option>kumpir</option>
+            <tr ng-repeat="user in users">
+                <td>{{user.id}}</td>
+                <td><select ng-model="user.resources"
+                            ng-options="resource.id for resource in resources"
+                            multiple class="form-control">
+                    <option>-- select resources --</option>
                 </select>
                 </td>
                 <td>
