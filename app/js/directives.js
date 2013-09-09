@@ -16,7 +16,15 @@ var binder = function (parser, formatter) {
 };
 
 angular.module('oauthServerUI.directives', [])
-    .directive('comma-list-string-to-array-binding', binder(
+    .directive('commaListStringToArrayBinding', binder(
+        function (text) {
+            if (!text) {
+                return [];
+            }
+            return text.split(',').map(function (e) {
+                return e.trim();
+            });
+        },
         function (stringArray) {
             if (!stringArray || stringArray.length == 0) {
                 return '';
@@ -29,27 +37,9 @@ angular.module('oauthServerUI.directives', [])
                 list += stringArray[i];
             }
             return list;
-        },
-        function (text) {
-            if (!text) {
-                return [];
-            }
-            return text.split(',').map(function (e) {
-                return e.trim();
-            });
         }
     ))
-    .directive('prop-eq-val-lines-to-obj-binding', binder(
-        function (object) {
-            if (!object) {
-                return '';
-            }
-            var out = '';
-            for (var property in object) {
-                out += (property + ' = ' + object[property] + '\n');
-            }
-            return out;
-        },
+    .directive('propEqValLinesToObjBinding', binder(
         function (text) {
             if (!text) {
                 return {};
@@ -61,6 +51,18 @@ angular.module('oauthServerUI.directives', [])
                 var propAndValue = line.split('=');
                 out[propAndValue[0]] = propAndValue[1];
             }
+            return out;
+        },
+        function (object) {
+            console.log(object);
+            if (!object) {
+                return '';
+            }
+            var out = '';
+            for (var property in object) {
+                out += (property + ' = ' + object[property] + '\n');
+            }
+            console.log(out);
             return out;
         }
     ));
