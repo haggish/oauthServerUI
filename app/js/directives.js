@@ -54,7 +54,6 @@ angular.module('oauthServerUI.directives', [])
             return out;
         },
         function (object) {
-            console.log(object);
             if (!object) {
                 return '';
             }
@@ -62,7 +61,6 @@ angular.module('oauthServerUI.directives', [])
             for (var property in object) {
                 out += (property + ' = ' + object[property] + '\n');
             }
-            console.log(out);
             return out;
         }
     ));
