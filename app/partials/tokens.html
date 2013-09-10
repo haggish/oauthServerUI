@@ -89,58 +89,70 @@
     </tr>
     </thead>
     <tbody>
-    <form class="form-inline" role="form">
+    <form class="form-inline" role="form" ng-submit="add()">
         <tr>
             <td>
                 <input type="text" required class="form-control"
-                       placeholder="Client ID">
+                       ng-model="newToken.clientID" placeholder="Client ID">
             </td>
             <td>
-                <select multiple class="form-control">
+                <select ng-model="newToken.resources" multiple
+                        class="form-control">
                     <option>tonr</option>
                     <option>kumpir</option>
                     <option>käkkär</option>
                 </select>
             </td>
             <td>
-                <input type="password" class="form-control" placeholder="Client Secret">
+                <input ng-model="newToken.secret" type="password"
+                       class="form-control" placeholder="Client Secret">
             </td>
             <td>
-                <select multiple class="form-control">
+                <select ng-model="newToken.scope" multiple class="form-control">
                     <option>read</option>
                     <option>write</option>
                     <option>delete</option>
                 </select>
             </td>
             <td>
-                <select multiple class="form-control">
+                <select ng-model="newToken.authorizedGrantTypes"
+                        multiple class="form-control">
                     <option>Authorization Code</option>
                     <option>Implicit</option>
                 </select>
             </td>
             <td>
-                <button type="button" class="btn btn-default btn-sm">
+                <button type="submit" class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-save"></span>
                 </button>
             </td>
         </tr>
         <tr>
             <td>
-                <input type="url" class="form-control" placeholder="Web Server Redirect URI">
+                <input type="url" class="form-control"
+                       ng-model="newToken.webServerRedirectURI"
+                       placeholder="Web Server Redirect URI">
             </td>
             <td>
-                <select multiple class="form-control">
-                    <option>ROLE_CLIENT</option>
-                </select>
+                <input ng-model="newToken.authorities"
+                       comma-list-string-to-array-binding
+                       placeholder="Authorities (separated by commas)"
+                       class="form-control">
             </td>
             <td>
-                <input type="number" class="form-control" placeholder="Access Token Validity">
+                <input type="number" ng-model="newToken.accessTokenValidity"
+                       class="form-control" placeholder="Access Token Validity">
             </td>
             <td>
-                <input type="number" class="form-control" placeholder="Refresh Token Validity">
+                <input type="number" ng-model="newToken.refreshTokenValidity"
+                       class="form-control"
+                       placeholder="Refresh Token Validity">
             </td>
             <td>
-                <textarea class="form-control" rows="3" placeholder="Additional Information"></textarea>
+                <textarea class="form-control" rows="3"
+                          prop-eq-val-lines-to-obj-binding
+                          ng-model="newToken.additionalInformation"
+                          placeholder="Additional Information"></textarea>
             </td>
         </tr>
     </form>

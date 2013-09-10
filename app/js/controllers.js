@@ -30,6 +30,13 @@ angular.module('oauthServerUI.controllers', []).
                 });
                 tokens.delete({"id": id.$oid});
             };
+
+            $scope.newToken = {};
+
+            $scope.add = function () {
+                new tokens($scope.newToken).$save();
+            };
+
         }])
 
     .controller('Resources', ['$scope', 'resources', 'users',
