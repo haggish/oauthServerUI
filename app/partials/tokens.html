@@ -21,7 +21,7 @@
             <td>{{token.clientID}}</td>
             <td>
                 <select ng-model="token.resources"
-                        ng-options="resourceOfUser.id for resourceOfUser in resourcesOfUser"
+                        ng-options="resourceOfUser for resourceOfUser in resourcesOfUser"
                         multiple class="form-control">
                     <option>-- select resources --</option>
                 </select>

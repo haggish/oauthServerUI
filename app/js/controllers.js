@@ -6,7 +6,11 @@ angular.module('oauthServerUI.controllers', []).
 
     controller('Tokens', ['$scope', 'tokens', 'resources',
         function ($scope, tokens, resources) {
-            $scope.resourcesOfUser = resources.query(); // FIXME: only resources of cuser
+            $scope.resourcesOfUser = resources.query(function () {
+                $scope.resourcesOfUser = $scope.resourcesOfUser.map(function (e) {
+                    return e.id;
+                });
+            }); // FIXME: only resources of cuser
             // FIXME: see what is selected in resources, then query their scopes, then union
             $scope.unionOfResourceScopes = [ 'read', 'write', 'delete' ];
             // FIXME: same for authzd grant types of resources
