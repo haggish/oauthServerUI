@@ -6,7 +6,7 @@ angular.module('oauthServerUI.services', ['ngResource'])
     .constant('apiKey', '50e30f30e4b013ed303bbea5')
     .service('util', function (dbURL, apiKey, $resource) {
         this.resourceFor = function (dbname) {
-            return $resource(dbURL + '/' + dbname, {
+            return $resource(dbURL + '/' + dbname + '/:id', {
                 "apiKey": apiKey
             }, {});
         };
