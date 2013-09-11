@@ -97,14 +97,13 @@
             </td>
             <td>
                 <select ng-model="newToken.resources" multiple
+                        ng-options="resourceOfUser for resourceOfUser in resourcesOfUser"
                         class="form-control">
-                    <option>tonr</option>
-                    <option>kumpir</option>
-                    <option>käkkär</option>
+                    <option>-- select resource --</option>
                 </select>
             </td>
             <td>
-                <input ng-model="newToken.secret" type="password"
+                <input ng-model="newToken.clientSecret" type="password"
                        class="form-control" placeholder="Client Secret">
             </td>
             <td>
