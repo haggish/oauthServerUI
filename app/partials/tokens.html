@@ -67,11 +67,16 @@
                           class="form-control" rows="3">
                 </textarea>
             </td>
+            <td>
+                <button type="button" ng-click="token.$update({ id : token._id.$oid })" class="btn btn-default btn-sm">
+                    <span class="glyphicon glyphicon-save"></span>
+                </button>
+            </td>
         </tr>
     </form>
     </tbody>
 </table>
-<table>
+<table class="table">
     <thead>
     <tr>
         <th>Client ID</th>

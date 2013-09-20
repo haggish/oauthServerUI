@@ -1,22 +1,17 @@
 'use strict';
 
-angular.module('oauthServerUI.services', ['ngResource'])
-    .constant('dbURL',
-        'https://api.mongolab.com/api/1/databases/oauth/collections')
-    .constant('apiKey', '50e30f30e4b013ed303bbea5')
+angular.module('oauthServerUI.services', ['mongolabResourceHttp'])
+    .constant('MONGOLAB_CONFIG',
+    { API_KEY: '50e30f30e4b013ed303bbea5', DB_NAME: 'oauth' })
     .service('util', function (dbURL, apiKey, $resource) {
-        this.resourceFor = function (dbname) {
-            return $resource(dbURL + '/' + dbname + '/:id', {
-                "apiKey": apiKey
-            }, {});
-        };
+        // empty for now
     })
-    .factory('tokens', function (util) {
-        return util.resourceFor('tokens')
+    .factory('tokens', function ($mongolabResourceHttp) {
+        return $mongolabResourceHttp('tokens');
     })
-    .factory('resources', function (util) {
-        return util.resourceFor('resources');
+    .factory('resources', function ($mongolabResourceHttp) {
+        return $mongolabResourceHttp('resources');
     })
-    .factory('users', function (util) {
-        return util.resourceFor('users');
+    .factory('users', function ($mongolabResourceHttp) {
+        return $mongolabResourceHttp('users');
     });

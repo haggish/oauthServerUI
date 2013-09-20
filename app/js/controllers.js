@@ -7,12 +7,12 @@ angular.module('oauthServerUI.controllers', []).
     controller('Tokens', ['$scope', 'tokens', 'resources',
         function ($scope, tokens, resources) {
 
-            $scope.resourcesOfUser = resources.query(function () {
-                $scope.resourcesOfUser = $scope.resourcesOfUser.map(
+            $scope.resourcesOfUser = resources.all(function (all) {
+                $scope.resourcesOfUser = all.map(
                     function (e) {
                         return e.id;
                     });
-            }); // FIXME: only resources of cuser
+            }); // FIXME (when auth exists): only resources of cuser
 
             // FIXME: see what is selected in resources,
             // FIXME: then query their scopes, then union
@@ -22,13 +22,26 @@ angular.module('oauthServerUI.controllers', []).
             $scope.unionOfAuthorizedGrantTypes =
                 [ 'AUTHORIZATION_CODE', 'IMPLICIT' ];
 
-            $scope.tokens = tokens.query();
+            $scope.tokens = tokens.all();
+
+            var withID = function (id) {
+                return function (e) {
+                    return e._id === id;
+                };
+            };
+
+            var not = function (f) {
+                return function () {
+                    return !f();
+                }
+            };
 
             $scope.remove = function (id) {
-                $scope.tokens = $scope.tokens.filter(function (e) {
-                    return e._id !== id;
+                $scope.tokens.filter(withID(id)).forEach(function (e) {
+                    e.$remove(function () {
+                        $scope.tokens = $scope.tokens.filter(not(withID(id)));
+                    });
                 });
-                tokens.delete({"id": id.$oid});
             };
 
             $scope.newToken = {};
@@ -36,6 +49,10 @@ angular.module('oauthServerUI.controllers', []).
             $scope.add = function () {
                 new tokens($scope.newToken).$save();
             };
+
+            $scope.save = function () {
+                console.log('kak');
+            }
 
         }])
 
