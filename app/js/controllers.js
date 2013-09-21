@@ -22,7 +22,9 @@ angular.module('oauthServerUI.controllers', []).
             $scope.unionOfAuthorizedGrantTypes =
                 [ 'AUTHORIZATION_CODE', 'IMPLICIT' ];
 
-            $scope.tokens = tokens.all();
+            tokens.all(function (all) {
+                $scope.tokens = all;
+            });
 
             var withID = function (id) {
                 return function (e) {
@@ -31,8 +33,8 @@ angular.module('oauthServerUI.controllers', []).
             };
 
             var not = function (f) {
-                return function () {
-                    return !f();
+                return function (e) {
+                    return !f(e);
                 }
             };
 
@@ -40,6 +42,7 @@ angular.module('oauthServerUI.controllers', []).
                 $scope.tokens.filter(withID(id)).forEach(function (e) {
                     e.$remove(function () {
                         $scope.tokens = $scope.tokens.filter(not(withID(id)));
+                        $scope.newToken = {};
                     });
                 });
             };
@@ -47,11 +50,19 @@ angular.module('oauthServerUI.controllers', []).
             $scope.newToken = {};
 
             $scope.add = function () {
-                new tokens($scope.newToken).$save();
+                var newToken = new tokens($scope.newToken);
+                newToken.$save(function () {
+                    $scope.tokens.push(newToken);
+                    $scope.newToken = {};
+                });
             };
 
-            $scope.save = function () {
-                console.log('kak');
+            $scope.save = function (id) {
+                $scope.tokens.filter(withID(id)).forEach(function (e) {
+                    e.$update(function () {
+                        console.log(id + ' updated');
+                    });
+                })
             }
 
         }])
