@@ -27,11 +27,13 @@
                 </select>
             </td>
             <td>
-                <input ng-model="token.clientSecret" type="password" class="form-control">
+                <input ng-model="token.clientSecret" type="password"
+                       class="form-control">
             </td>
             <td>
                 <select ng-model="token.scope"
-                        ng-options="scope for scope in unionOfResourceScopes" multiple
+                        ng-options="scope for scope in unionOfResourceScopes"
+                        multiple
                         class="form-control">
                     <option>-- select scope --</option>
                 </select>
@@ -44,31 +46,38 @@
                 </select>
             </td>
             <td>
-                <button type="button" ng-click="remove(token._id)" class="btn btn-default btn-sm">
+                <button type="button" ng-click="remove(token._id)"
+                        class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
             </td>
         </tr>
         <tr>
             <td>
-                <input type="url" ng-model="token.webServerRedirectURI" class="form-control">
+                <input type="url" ng-model="token.webServerRedirectURI"
+                       class="form-control">
             </td>
             <td>
-                <input ng-model="token.authorities" comma-list-string-to-array-binding class="form-control">
+                <input ng-model="token.authorities"
+                       comma-list-string-to-array-binding class="form-control">
             </td>
             <td>
-                <input type="number" ng-model="token.accessTokenValidity" class="form-control">
+                <input type="number" ng-model="token.accessTokenValidity"
+                       class="form-control">
             </td>
             <td>
-                <input type="number" ng-model="token.refreshTokenValidity" class="form-control">
+                <input type="number" ng-model="token.refreshTokenValidity"
+                       class="form-control">
             </td>
             <td>
-                <textarea ng-model="token.additionalInformation" prop-eq-val-lines-to-obj-binding
+                <textarea ng-model="token.additionalInformation"
+                          prop-eq-val-lines-to-obj-binding
                           class="form-control" rows="3">
                 </textarea>
             </td>
             <td>
-                <button type="button" ng-click="save(token._id)" class="btn btn-default btn-sm">
+                <button type="button" ng-click="save(token._id)"
+                        class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-save"></span>
                 </button>
             </td>

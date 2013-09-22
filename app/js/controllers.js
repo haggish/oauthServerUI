@@ -70,8 +70,8 @@ angular.module('oauthServerUI.controllers', []).
     .controller('Resources', ['$scope', 'resources', 'users',
         function ($scope, resources, users) {
 
-            $scope.resources = resources.query();
+            $scope.resources = resources.all();
 
-            $scope.users = users.query();
+            $scope.users = users.all();
 
         }]);

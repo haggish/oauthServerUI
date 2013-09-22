@@ -7,25 +7,41 @@
             </thead>
             <tbody>
             <tr ng-repeat="resource in resources">
-                <form class="form-inline">
+                <form class="form-inline" role="form"
+                      ng-submit="saveResource()">
                     <td>{{resource.id}}</td>
-                    <td><input type="text" value="{{resource.description}}"></td>
+                    <td><input class="form-control" type="text"
+                               ng-model="resource.description">
+                    </td>
                     <td>
-                        <button type="button" class="btn btn-default btn-sm">
+                        <button type="button" class="btn btn-default btn-sm"
+                                ng-click="removeResource(resource.id)">
                             <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-save"></span>
                         </button>
                     </td>
                 </form>
             </tr>
-            <tr>
-                <td><input required type="text"></td>
-                <td><input type="text"></td>
-                <td>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-save"></span>
-                    </button>
-                </td>
-            </tr>
+            <form class="form-inline" role="form" ng-submit="addResource()">
+                <tr>
+                    <td><input required type="text" class="form-control"
+                               ng-model="newResource.id" placeholder="Name">
+                    </td>
+                    <td><input type="text" class="form-control"
+                               ng-model="newResource.description"
+                               placeholder="Description">
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-save"></span>
+                        </button>
+                    </td>
+                </tr>
+            </form>
             </tbody>
         </table>
     </div>
@@ -37,27 +53,41 @@
             </thead>
             <tbody>
             <tr ng-repeat="user in users">
-                <td>{{user.id}}</td>
-                <td><select ng-model="user.resources"
-                            ng-options="resource.id for resource in resources"
-                            multiple class="form-control">
-                    <option>-- select resources --</option>
-                </select>
-                </td>
-                <td>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-remove"></span>
-                    </button>
-                </td>
+                <form class="form-inline" role="form" ng-submit="saveUser()">
+                    <td>{{user.id}}</td>
+                    <td><select ng-model="user.resources"
+                                ng-options="resource.id for resource in resources"
+                                multiple class="form-control">
+                        <option>-- select resources --</option>
+                    </select>
+                    </td>
+                    <td>
+                        <button type="button" class="btn btn-default btn-sm"
+                                ng-click="removeUser(user.id)">
+                            <span class="glyphicon glyphicon-remove"></span>
+                        </button>
+                    </td>
+                    <td>
+                        <button type="submit" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-save"></span>
+                        </button>
+                    </td>
+                </form>
             </tr>
             <tr>
-                <td><input required type="text"></td>
-                <td><input type="text"></td>
-                <td>
-                    <button type="button" class="btn btn-default btn-sm">
-                        <span class="glyphicon glyphicon-save"></span>
-                    </button>
-                </td>
+                <form class="form-inline" role="form" ng-submit="addUser()">
+                    <td><input required type="text" class="form-control"
+                               ng-model="newUser.id" placeholder="User ID"></td>
+                    <td><input type="text" class="form-control"
+                               comma-list-string-to-array-binding
+                               ng-model="newUser.resources"
+                            placeholder="resources (comma-separated)"></td>
+                    <td>
+                        <button type="submit" class="btn btn-default btn-sm">
+                            <span class="glyphicon glyphicon-save"></span>
+                        </button>
+                    </td>
+                </form>
             </tr>
             </tbody>
         </table>
