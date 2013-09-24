@@ -4,8 +4,8 @@
 
 angular.module('oauthServerUI.controllers', []).
 
-    controller('Tokens', ['$scope', 'tokens', 'resources',
-        function ($scope, tokens, resources) {
+    controller('Tokens', ['$scope', 'tokens', 'resources', 'util',
+        function ($scope, tokens, resources, util) {
 
             $scope.resourcesOfUser = resources.all(function (all) {
                 $scope.resourcesOfUser = all.map(
@@ -26,52 +26,36 @@ angular.module('oauthServerUI.controllers', []).
                 $scope.tokens = all;
             });
 
-            var withID = function (id) {
-                return function (e) {
-                    return e._id === id;
-                };
-            };
-
-            var not = function (f) {
-                return function (e) {
-                    return !f(e);
-                }
-            };
-
-            $scope.remove = function (id) {
-                $scope.tokens.filter(withID(id)).forEach(function (e) {
-                    e.$remove(function () {
-                        $scope.tokens = $scope.tokens.filter(not(withID(id)));
-                        $scope.newToken = {};
-                    });
-                });
-            };
+            $scope.remove = util.remove('token', $scope);
 
             $scope.newToken = {};
 
-            $scope.add = function () {
-                var newToken = new tokens($scope.newToken);
-                newToken.$save(function () {
-                    $scope.tokens.push(newToken);
-                    $scope.newToken = {};
-                });
-            };
+            $scope.add = util.add('token', tokens, $scope);
 
-            $scope.save = function (id) {
-                $scope.tokens.filter(withID(id)).forEach(function (e) {
-                    e.$update(function () {
-                        console.log(id + ' updated');
-                    });
-                })
-            }
-
+            $scope.update = util.update('token', $scope);
         }])
 
-    .controller('Resources', ['$scope', 'resources', 'users',
-        function ($scope, resources, users) {
+    .controller('Resources', ['$scope', 'resources', 'users', 'util',
+        function ($scope, resources, users, util) {
 
             $scope.resources = resources.all();
 
             $scope.users = users.all();
+
+            $scope.newResource = {};
+
+            $scope.newUser = {};
+
+            $scope.saveResource = util.update('resource', $scope);
+
+            $scope.removeResource = util.remove('resource', $scope);
+
+            $scope.addResource = util.add('resource', resources, $scope);
+
+            $scope.saveUser = util.update('user', $scope);
+
+            $scope.removeUser = util.remove('user', $scope);
+
+            $scope.addUser = util.add('user', users, $scope);
 
         }]);

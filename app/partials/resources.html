@@ -15,7 +15,7 @@
                     </td>
                     <td>
                         <button type="button" class="btn btn-default btn-sm"
-                                ng-click="removeResource(resource.id)">
+                                ng-click="removeResource(resource._id)">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </td>
@@ -53,7 +53,8 @@
             </thead>
             <tbody>
             <tr ng-repeat="user in users">
-                <form class="form-inline" role="form" ng-submit="saveUser()">
+                <form name="user_{{user.id}}" class="form-inline" role="form"
+                      ng-submit="saveUser()">
                     <td>{{user.id}}</td>
                     <td><select ng-model="user.resources"
                                 ng-options="resource.id for resource in resources"
@@ -63,7 +64,7 @@
                     </td>
                     <td>
                         <button type="button" class="btn btn-default btn-sm"
-                                ng-click="removeUser(user.id)">
+                                ng-click="removeUser(user._id)">
                             <span class="glyphicon glyphicon-remove"></span>
                         </button>
                     </td>
