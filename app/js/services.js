@@ -4,6 +4,9 @@ angular.module('oauthServerUI.services', ['mongolabResourceHttp'])
     .constant('MONGOLAB_CONFIG',
     { API_KEY: '50e30f30e4b013ed303bbea5', DB_NAME: 'oauth' })
     .service('util', function () {
+
+        var util = this;
+
         this.withID = function (id) {
             return function (e) {
                 return e._id === id;
@@ -41,7 +44,8 @@ angular.module('oauthServerUI.services', ['mongolabResourceHttp'])
                 var newEntityName = newEntityNameFor(entityName);
                 var collectionName = collectionNameFor(entityName);
                 var newEntity = new ctor($scope[newEntityName]);
-                newEntity.$save(function () {
+                newEntity.$save(function (result) {
+                    newEntity._id = result._id;
                     $scope[collectionName].push(newEntity);
                     $scope[newEntityName] = {};
                 });
@@ -52,10 +56,12 @@ angular.module('oauthServerUI.services', ['mongolabResourceHttp'])
             return function (id) {
                 var newEntityName = newEntityNameFor(entityName);
                 var collectionName = collectionNameFor(entityName);
-                $scope[collectionName].filter(util.withID(id)).forEach(function (e) {
+                $scope[collectionName].filter(
+                        util.withID(id)).forEach(function (e) {
                     e.$remove(function () {
                         $scope[collectionName] =
-                            $scope[collectionName].filter(util.not(util.withID(id)));
+                            $scope[collectionName]
+                                .filter(util.not(util.withID(id)));
                         $scope[newEntityName] = {};
                     });
                 });
