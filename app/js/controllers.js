@@ -38,21 +38,32 @@ angular.module('oauthServerUI.controllers', []).
     .controller('Resources', ['$scope', 'resources', 'users', 'util',
         function ($scope, resources, users, util) {
 
-            $scope.resources = resources.all();
+            resources.all(function (all) {
+                $scope.resources = all;
+            });
 
-            $scope.users = users.all();
+            users.all(function (all) {
+                $scope.users = all;
+            });
+
+            resources.all(function (all) {
+                $scope.resourceNames = all.map(
+                    function (e) {
+                        return e.id;
+                    });
+            });
 
             $scope.newResource = {};
 
             $scope.newUser = {};
 
-            $scope.saveResource = util.update('resource', $scope);
+            $scope.updateResource = util.update('resource', $scope);
 
             $scope.removeResource = util.remove('resource', $scope);
 
             $scope.addResource = util.add('resource', resources, $scope);
 
-            $scope.saveUser = util.update('user', $scope);
+            $scope.updateUser = util.update('user', $scope);
 
             $scope.removeUser = util.remove('user', $scope);
 

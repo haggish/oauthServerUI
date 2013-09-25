@@ -7,8 +7,7 @@
             </thead>
             <tbody>
             <tr ng-repeat="resource in resources">
-                <form class="form-inline" role="form"
-                      ng-submit="saveResource()">
+                <form class="form-inline" role="form">
                     <td>{{resource.id}}</td>
                     <td><input class="form-control" type="text"
                                ng-model="resource.description">
@@ -20,7 +19,8 @@
                         </button>
                     </td>
                     <td>
-                        <button type="submit" class="btn btn-default btn-sm">
+                        <button type="button" class="btn btn-default btn-sm"
+                                ng-click="updateResource(resource._id)">
                             <span class="glyphicon glyphicon-save"></span>
                         </button>
                     </td>
@@ -53,11 +53,10 @@
             </thead>
             <tbody>
             <tr ng-repeat="user in users">
-                <form name="user_{{user.id}}" class="form-inline" role="form"
-                      ng-submit="saveUser()">
+                <form name="user_{{user.id}}" class="form-inline" role="form">
                     <td>{{user.id}}</td>
                     <td><select ng-model="user.resources"
-                                ng-options="resource.id for resource in resources"
+                                ng-options="resourceName for resourceName in resourceNames"
                                 multiple class="form-control">
                         <option>-- select resources --</option>
                     </select>
@@ -69,7 +68,8 @@
                         </button>
                     </td>
                     <td>
-                        <button type="submit" class="btn btn-default btn-sm">
+                        <button type="button" class="btn btn-default btn-sm"
+                                ng-click="updateUser(user._id)">
                             <span class="glyphicon glyphicon-save"></span>
                         </button>
                     </td>
@@ -82,7 +82,7 @@
                     <td><input type="text" class="form-control"
                                comma-list-string-to-array-binding
                                ng-model="newUser.resources"
-                            placeholder="resources (comma-separated)"></td>
+                               placeholder="resources (comma-separated)"></td>
                     <td>
                         <button type="submit" class="btn btn-default btn-sm">
                             <span class="glyphicon glyphicon-save"></span>
