@@ -1,4 +1,4 @@
-<table class="table" ng-repeat="token in tokens">
+<table class="table" ng-repeat="token in tokens.all">
     <thead>
     <tr>
         <th>Client ID</th>
@@ -46,7 +46,7 @@
                 </select>
             </td>
             <td>
-                <button type="button" ng-click="remove(token._id)"
+                <button type="button" ng-click="tokens.remove(token._id)"
                         class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-remove"></span>
                 </button>
@@ -76,7 +76,7 @@
                 </textarea>
             </td>
             <td>
-                <button type="button" ng-click="update(token._id)"
+                <button type="button" ng-click="tokens.update(token._id)"
                         class="btn btn-default btn-sm">
                     <span class="glyphicon glyphicon-save"></span>
                 </button>
@@ -103,32 +103,32 @@
     </tr>
     </thead>
     <tbody>
-    <form class="form-inline" role="form" ng-submit="add()">
+    <form class="form-inline" role="form" ng-submit="tokens.add()">
         <tr>
             <td>
                 <input type="text" required class="form-control"
-                       ng-model="newToken.clientID" placeholder="Client ID">
+                       ng-model="tokens.newOne.clientID" placeholder="Client ID">
             </td>
             <td>
-                <select ng-model="newToken.resources" multiple
+                <select ng-model="tokens.newOne.resources" multiple
                         ng-options="resourceOfUser for resourceOfUser in resourcesOfUser"
                         class="form-control">
                     <option>-- select resource --</option>
                 </select>
             </td>
             <td>
-                <input ng-model="newToken.clientSecret" type="password"
+                <input ng-model="tokens.newOne.clientSecret" type="password"
                        class="form-control" placeholder="Client Secret">
             </td>
             <td>
-                <select ng-model="newToken.scope" multiple class="form-control">
+                <select ng-model="tokens.newOne.scope" multiple class="form-control">
                     <option>read</option>
                     <option>write</option>
                     <option>delete</option>
                 </select>
             </td>
             <td>
-                <select ng-model="newToken.authorizedGrantTypes"
+                <select ng-model="tokens.newOne.authorizedGrantTypes"
                         multiple class="form-control">
                     <option>Authorization Code</option>
                     <option>Implicit</option>
@@ -143,28 +143,28 @@
         <tr>
             <td>
                 <input type="url" class="form-control"
-                       ng-model="newToken.webServerRedirectURI"
+                       ng-model="tokens.newOne.webServerRedirectURI"
                        placeholder="Web Server Redirect URI">
             </td>
             <td>
-                <input ng-model="newToken.authorities"
+                <input ng-model="tokens.newOne.authorities"
                        comma-list-string-to-array-binding
                        placeholder="Authorities (separated by commas)"
                        class="form-control">
             </td>
             <td>
-                <input type="number" ng-model="newToken.accessTokenValidity"
+                <input type="number" ng-model="tokens.newOne.accessTokenValidity"
                        class="form-control" placeholder="Access Token Validity">
             </td>
             <td>
-                <input type="number" ng-model="newToken.refreshTokenValidity"
+                <input type="number" ng-model="tokens.newOne.refreshTokenValidity"
                        class="form-control"
                        placeholder="Refresh Token Validity">
             </td>
             <td>
                 <textarea class="form-control" rows="3"
                           prop-eq-val-lines-to-obj-binding
-                          ng-model="newToken.additionalInformation"
+                          ng-model="tokens.newOne.additionalInformation"
                           placeholder="Additional Information"></textarea>
             </td>
         </tr>

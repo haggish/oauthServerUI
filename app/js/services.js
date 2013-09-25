@@ -5,67 +5,56 @@ angular.module('oauthServerUI.services', ['mongolabResourceHttp'])
     { API_KEY: '50e30f30e4b013ed303bbea5', DB_NAME: 'oauth' })
     .service('util', function () {
 
-        var util = this;
+        this.crudFor = function (repo) {
 
-        this.withID = function (id) {
-            return function (e) {
-                return e._id === id;
-            };
-        };
+            var crud = {};
 
-        this.not = function (f) {
-            return function (e) {
-                return !f(e);
+            crud.newOne = {};
+            repo.all(function (all) {
+                crud.all = all;
+            });
+
+            function withID(id) {
+                return function (e) {
+                    return e._id === id;
+                };
             }
-        };
 
-        function collectionNameFor(entityName) {
-            return entityName + 's';
-        }
+            function not(f) {
+                return function (e) {
+                    return !f(e);
+                }
+            }
 
-        function newEntityNameFor(entityName) {
-            return 'new' + entityName.charAt(0).toUpperCase() +
-                entityName.substring(1);
-        }
+            crud.add = function () {
+                var newEntity = new repo(crud.newOne);
+                newEntity.$save(function (result) {
+                    newEntity._id = result._id;
+                    crud.all.push(newEntity);
+                    crud.newOne = {};
+                });
+            };
 
-        this.update = function (entityName, $scope) {
-            return function (id) {
-                $scope[collectionNameFor(entityName)].filter(util.withID(id))
+            crud.update = function (id) {
+                crud.all.filter(withID(id))
                     .forEach(function (e) {
                         e.$update(function () {
-                            console.log(entityName + ' ' + id + ' updated');
+                            console.log('entity ' + id + ' updated');
                         });
                     });
             };
-        };
 
-        this.add = function (entityName, ctor, $scope) {
-            return function () {
-                var newEntityName = newEntityNameFor(entityName);
-                var collectionName = collectionNameFor(entityName);
-                var newEntity = new ctor($scope[newEntityName]);
-                newEntity.$save(function (result) {
-                    newEntity._id = result._id;
-                    $scope[collectionName].push(newEntity);
-                    $scope[newEntityName] = {};
-                });
-            };
-        };
-
-        this.remove = function (entityName, $scope) {
-            return function (id) {
-                var newEntityName = newEntityNameFor(entityName);
-                var collectionName = collectionNameFor(entityName);
-                $scope[collectionName].filter(
-                        util.withID(id)).forEach(function (e) {
-                    e.$remove(function () {
-                        $scope[collectionName] =
-                            $scope[collectionName]
-                                .filter(util.not(util.withID(id)));
-                        $scope[newEntityName] = {};
+            crud.remove = function (id) {
+                crud.all.filter(
+                        withID(id)).forEach(function (e) {
+                        e.$remove(function () {
+                            crud.all = crud.all.filter(not(withID(id)));
+                            crud.newOne = {};
+                        });
                     });
-                });
             };
+
+            return crud;
         };
     })
     .factory('tokens', function ($mongolabResourceHttp) {

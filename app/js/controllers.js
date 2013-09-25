@@ -22,29 +22,16 @@ angular.module('oauthServerUI.controllers', []).
             $scope.unionOfAuthorizedGrantTypes =
                 [ 'AUTHORIZATION_CODE', 'IMPLICIT' ];
 
-            tokens.all(function (all) {
-                $scope.tokens = all;
-            });
+            $scope.tokens = util.crudFor(tokens);
 
-            $scope.remove = util.remove('token', $scope);
-
-            $scope.newToken = {};
-
-            $scope.add = util.add('token', tokens, $scope);
-
-            $scope.update = util.update('token', $scope);
         }])
 
     .controller('Resources', ['$scope', 'resources', 'users', 'util',
         function ($scope, resources, users, util) {
 
-            resources.all(function (all) {
-                $scope.resources = all;
-            });
+            $scope.resources = util.crudFor(resources);
 
-            users.all(function (all) {
-                $scope.users = all;
-            });
+            $scope.users = util.crudFor(users);
 
             resources.all(function (all) {
                 $scope.resourceNames = all.map(
@@ -52,21 +39,4 @@ angular.module('oauthServerUI.controllers', []).
                         return e.id;
                     });
             });
-
-            $scope.newResource = {};
-
-            $scope.newUser = {};
-
-            $scope.updateResource = util.update('resource', $scope);
-
-            $scope.removeResource = util.remove('resource', $scope);
-
-            $scope.addResource = util.add('resource', resources, $scope);
-
-            $scope.updateUser = util.update('user', $scope);
-
-            $scope.removeUser = util.remove('user', $scope);
-
-            $scope.addUser = util.add('user', users, $scope);
-
         }]);
